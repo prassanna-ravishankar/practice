@@ -13,7 +13,7 @@
 using namespace std;
 using namespace cv;
 
-void visualize(vector<IplImage *> response){
+void visualize(const vector<IplImage *>& response){
     for(int i = 0; i < response.size(); ++i){
         Mat img(response[i]);
         drwnShowDebuggingImage(response[i],"texton feature",true);
@@ -39,9 +39,8 @@ int main(int argc, char *argv[])
   drwnHOGFeatures hog;
   vector<IplImage *> response,features;
   IplImage tmp = img.operator IplImage();
-  Ptr<IplImage> img_ptr = &tmp;
-  filter.filter(img_ptr, response);
-  hog.computeDenseFeatures(img_ptr,response);
+  filter.filter(&tmp, response);
+  hog.computeDenseFeatures(&tmp,features);
   visualize(response);
   response.clear();
   features.clear();

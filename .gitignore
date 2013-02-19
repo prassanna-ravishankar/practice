@@ -3,3 +3,4 @@ build
 *.pcd
 *.png
 *.jpg
+*.usr
