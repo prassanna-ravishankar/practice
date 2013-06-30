@@ -1,18 +1,47 @@
+#include <Eigen/Core>
 #include "CImg.h"
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
 using namespace cimg_library;
+using namespace Eigen;
+
 int main(int argc, char **argv) {
-  CImg<unsigned char> image(argv[1]), visu(500,400,1,3,0);
-  const unsigned char red[] = { 255,0,0 }, green[] = { 0,255,0 }, blue[] = { 0,0,255 };
-  image.blur(2.5);
-  CImgDisplay main_disp(image,"Click a point"), draw_disp(visu,"Intensity profile");
-  while (!main_disp.is_closed() && !draw_disp.is_closed()) {
-    main_disp.wait();
-    if (main_disp.button() && main_disp.mouse_y()>=0) {
-      const int y = main_disp.mouse_y();
-      visu.fill(0).draw_graph(image.get_crop(0,y,0,0,image.width()-1,y,0,0),red,1,1,0,255,0);
-      visu.draw_graph(image.get_crop(0,y,0,1,image.width()-1,y,0,1),green,1,1,0,255,0);
-      visu.draw_graph(image.get_crop(0,y,0,2,image.width()-1,y,0,2),blue,1,1,0,255,0).display(draw_disp);
-      }
-    }
+  CImg<float> image(argv[1]), visu(500,400,1,3,0);
+  image < 'c';
+  const int w = image.width();
+  const int h = image.height();
+  Map<const MatrixXf> R(image.data(), h , w);
+  Map<const MatrixXf> G(image.data() + h * w, h,w);
+  Map<const MatrixXf> B(image.data() + 2 * h * w, h,w);
+  //image.RGBtoHSI().get_channel(2).display();
+  MatrixXf R2(R);
+  MatrixXf G2(G);
+  MatrixXf B2(B);
+  R2 *= 0.5;
+  G2 *= 0.5;
+  B2 *= 0.5;
+
+//  std::vector<float> raw(h * w * 3);
+//  std::copy(raw.begin(), raw.begin() + h * w, R2.data());
+//  std::copy(raw.begin() + h * w, raw.begin() + 2 * h * w, G2.data());
+//  std::copy(raw.begin() + 2 * h * w, raw.end(), B2.data());
+
+//  for(int i = 0; i < h * w * 3; ++i) std::cout << raw[i] << std::endl;
+//  CImg<float> img(h,w,1,3,0);
+//  std::cout << img.spectrum() << std::endl;
+//  CImg<float> r(R2.data(),h,w);
+//  CImg<float> g(G2.data(),h,w);
+//  CImg<float> b(B2.data(),h,w);
+
+//  image.channel(1) = g;
+//  image.channel(2) = b;
+//  image.channel(0) = r;
+//  //image.display();
+//  image.display();
+//  r.display();
+//  std::cout << image.spectrum() << std::endl;
   return 0;
 }
