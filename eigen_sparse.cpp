@@ -14,6 +14,7 @@ void insertCoefficient(int id, int i, int j, double w, std::vector<T>& coeffs,
   else  if(j==-1 || j==n) b(id) -= w * boundary(i); // constrained coeffcieint
   else  coeffs.push_back(T(id,id1,w));              // unknown coefficient
 }
+
 void buildProblem(std::vector<T>& coefficients, Eigen::VectorXd& b, int n)
 {
   b.setZero();
@@ -31,6 +32,7 @@ void buildProblem(std::vector<T>& coefficients, Eigen::VectorXd& b, int n)
     }
   }
 }
+
 void saveAsBitmap(const Eigen::VectorXd& x, int n, const char* filename)
 {
   Eigen::Array<unsigned char,Eigen::Dynamic,Eigen::Dynamic> bits = (x*255).cast<unsigned char>();
