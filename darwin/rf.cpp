@@ -121,6 +121,7 @@ int main(int argc, char **argv)
 {
 
     MatrixXd X = readData(argv[1]);
+  //  cout << X << endl;
     VectorXi label = readData2(argv[2]).col(0);
     // std::cout << label << endl;
     VectorXd mean,std_div;
@@ -135,6 +136,15 @@ int main(int argc, char **argv)
     for (int i = 0; i < X.rows(); ++i)
     {
         Map<VectorXd>(&features[i][0], X.cols()) = X.row(i);
+    }
+
+    for (int i = 0; i < X.rows(); ++i){
+        for (int j = 0; j < X.cols(); ++j) {
+            cout << features[i][j] << " ";
+        }
+
+        cout << std::endl;
+
     }
 
     drwnClassifierDataset dataset;
@@ -152,34 +162,34 @@ int main(int argc, char **argv)
            confusion.accumulate(dataset, model);
            confusion.printCounts();
 
-    MatrixXd X_test = readData(argv[3]);
-    VectorXi label_test = readData2(argv[4]);
+//    MatrixXd X_test = readData(argv[3]);
+//    VectorXi label_test = readData2(argv[4]);
 
-    vector<vector<double> > features_test(X_test.rows(), vector<double>(X.cols()));
-    vector<int> correct(X_test.rows());
+//    vector<vector<double> > features_test(X_test.rows(), vector<double>(X.cols()));
+//    vector<int> correct(X_test.rows());
 
-    X_test.rowwise() -= mean.transpose();
-    X_test.array().rowwise() /= std_div.transpose().array();
+//    X_test.rowwise() -= mean.transpose();
+//    X_test.array().rowwise() /= std_div.transpose().array();
 
-    Map<VectorXi>(&correct[0], X_test.rows()) = label_test;
-    for (int i = 0; i < X_test.rows(); ++i)
-    {
-        Map<VectorXd>(&features_test[i][0], X.cols()) = X_test.row(i);
-    }
+//    Map<VectorXi>(&correct[0], X_test.rows()) = label_test;
+//    for (int i = 0; i < X_test.rows(); ++i)
+//    {
+//        Map<VectorXd>(&features_test[i][0], X.cols()) = X_test.row(i);
+//    }
 
-    dataset.features = features_test;
-    vector<int> predictions;
-    model->getClassifications(dataset.features, predictions);
+//    dataset.features = features_test;
+//    vector<int> predictions;
+//    model->getClassifications(dataset.features, predictions);
 
-    Map<VectorXi> predicted(&predictions[0], predictions.size());
+//    Map<VectorXi> predicted(&predictions[0], predictions.size());
 
-    int c = 0;
-    for(int i = 0; i < predictions.size(); ++i)
-    {
-        if (predictions[i] == label_test(i)) c++;
-    }
+//    int c = 0;
+//    for(int i = 0; i < predictions.size(); ++i)
+//    {
+//        if (predictions[i] == label_test(i)) c++;
+//    }
 
-    cout << (float)c / predictions.size() << endl;
+//    cout << (float)c / predictions.size() << endl;
     delete model;
 
     return 0;
