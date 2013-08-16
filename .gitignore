@@ -4,3 +4,7 @@ build
 *.png
 *.jpg
 *.user
+CMakeCache.txt
+CMakeFiles
+*.so
+*.pyc
