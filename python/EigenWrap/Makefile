@@ -99,24 +99,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named _EigenWrap
+# Target rules for targets named eigen
 
 # Build rule for target.
-_EigenWrap: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _EigenWrap
-.PHONY : _EigenWrap
+eigen: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 eigen
+.PHONY : eigen
 
 # fast build rule for target.
-_EigenWrap/fast:
-	$(MAKE) -f CMakeFiles/_EigenWrap.dir/build.make CMakeFiles/_EigenWrap.dir/build
-.PHONY : _EigenWrap/fast
+eigen/fast:
+	$(MAKE) -f CMakeFiles/eigen.dir/build.make CMakeFiles/eigen.dir/build
+.PHONY : eigen/fast
 
 wrapper_example.o: wrapper_example.cpp.o
 .PHONY : wrapper_example.o
 
 # target to build an object file
 wrapper_example.cpp.o:
-	$(MAKE) -f CMakeFiles/_EigenWrap.dir/build.make CMakeFiles/_EigenWrap.dir/wrapper_example.cpp.o
+	$(MAKE) -f CMakeFiles/eigen.dir/build.make CMakeFiles/eigen.dir/wrapper_example.cpp.o
 .PHONY : wrapper_example.cpp.o
 
 wrapper_example.i: wrapper_example.cpp.i
@@ -124,7 +124,7 @@ wrapper_example.i: wrapper_example.cpp.i
 
 # target to preprocess a source file
 wrapper_example.cpp.i:
-	$(MAKE) -f CMakeFiles/_EigenWrap.dir/build.make CMakeFiles/_EigenWrap.dir/wrapper_example.cpp.i
+	$(MAKE) -f CMakeFiles/eigen.dir/build.make CMakeFiles/eigen.dir/wrapper_example.cpp.i
 .PHONY : wrapper_example.cpp.i
 
 wrapper_example.s: wrapper_example.cpp.s
@@ -132,7 +132,7 @@ wrapper_example.s: wrapper_example.cpp.s
 
 # target to generate assembly for a file
 wrapper_example.cpp.s:
-	$(MAKE) -f CMakeFiles/_EigenWrap.dir/build.make CMakeFiles/_EigenWrap.dir/wrapper_example.cpp.s
+	$(MAKE) -f CMakeFiles/eigen.dir/build.make CMakeFiles/eigen.dir/wrapper_example.cpp.s
 .PHONY : wrapper_example.cpp.s
 
 # Help Target
@@ -141,8 +141,8 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... _EigenWrap"
 	@echo "... edit_cache"
+	@echo "... eigen"
 	@echo "... rebuild_cache"
 	@echo "... wrapper_example.o"
 	@echo "... wrapper_example.i"
