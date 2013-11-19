@@ -6,6 +6,7 @@ set(LIBS ${LIBS} ${X11_LIBRARIES} ${CUDA_LIBARARIES} m pthread)
 add_definitions(-DDEBUG)
 set(CUDA_NVCC_FLAGS  -arch=sm_21)
 set(CUDA_FILES kernel.cu)
+include_directories(/home/masa/project/programming/gpu/NVIDIA_CUDA-5.5_Samples/common/inc /home/masa/project/dev/practice/cuda/cppIntegration)
 cuda_add_executable(cuda main.cpp ${CUDA_FILES})
 
 

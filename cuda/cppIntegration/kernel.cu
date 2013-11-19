@@ -138,5 +138,5 @@ bool runTest(const int argc, const char **argv, char *data, int2 *data_int2, uns
     free(reference);
     free(reference2);
 
-    return success;
+    return 0;
 }
