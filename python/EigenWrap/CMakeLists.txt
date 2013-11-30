@@ -1,28 +1,16 @@
 cmake_minimum_required(VERSION 2.6)
 
-#find_package(Eigen2 REQUIRED)
-#if(EIGEN2_FOUND)
-#  INCLUDE_DIRECTORIES(${EIGEN2_INCLUDE_DIR})
-#endif(EIGEN2_FOUND)
-#if (CMAKE_COMPILER_IS_GNUCXX)
-   #set ( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
-   #add_definitions ( "-DNDEBUG" )
-#endif (CMAKE_COMPILER_IS_GNUCXX)
+set(EIGEN_INCLUDE_DIR "")
+set(PYTHON_INCLUDE_DIR "")
+set(BOOST_INCLUDE_DIR "")
 
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -ggdb")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
+set(PYTHON_LIB_DIR "")
+set(BOOST_LIB_DIR "")
 
-set(EIGEN2_INCLUDE_DIR "/usr/local/include/eigen3")
-INCLUDE_DIRECTORIES(${EIGEN2_INCLUDE_DIR})
+INCLUDE_DIRECTORIES(${EIGEN_INCLUDE_DIR} ${PYTHON_INCLUDE_DIR} ${BOOST_INCLUDE_DIR})
 
-# Build a library to be imported as a python module.
-set(WRAP_PYTHON TRUE CACHE BOOL "Build Python Wrapper")
-if(WRAP_PYTHON)
-	LINK_LIBRARIES(boost_python)
-	INCLUDE_DIRECTORIES("/usr/include/python2.7")
-	LINK_DIRECTORIES("/usr/lib/python2.7")
-	ADD_LIBRARY(eigen SHARED wrapper_example.cpp)
-	SET_TARGET_PROPERTIES(eigen PROPERTIES PREFIX "")	
-#TARGET_LINK_LIBRARIES(_l1solver_e1x1 ${OPENCV_LIBRARIES})
-endif(WRAP_PYTHON)
+link_directories(${PYTHON_LIB_DIR} ${BOOST_LIB_DIR})
 
+set(LIBS boost_python python2.7)
+ADD_LIBRARY(pyeigen wrapper_example.cpp)
+TARGET_LINK_LIBRARIES(pyeigen ${LIBS})
